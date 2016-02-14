@@ -1,0 +1,23 @@
+{
+  "name": "gulp-project",
+  "version": "1.0.0",
+  "description": "Gulp Project",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-minify-css": "^1.2.3",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "gulp-svgmin": "^1.2.1",
+    "gulp-ttf2eot": "^1.1.1",
+    "gulp-ttf2woff": "^1.1.0",
+    "gulp-ttf2woff2": "^2.0.2",
+    "gulp-uglify": "^1.5.2",
+    "gulp-util": "^3.0.7",
+    "imagemin-pngquant": "^4.2.0"
+  }
+}

@@ -1,0 +1,48 @@
+// Vars and Mixins
+
+@import "_var.sass"
+@import "_mixins.sass"
+
+
+/*FONTS STYLE*/
+
+@import "_fonts.sass"
+
+
+/*MAIN STYLE*/
+
+//Clearfix
+
+header, 
+section, 
+footer,
+form
+	&:after
+		content: ""
+		display: block
+		clear: both
+		height: 0
+
+// ------------------
+
+
+body
+	font: 17px $general-font, Helvetica, Arial
+	color: $black
+
+.no-scroll
+	overflow: hidden
+
+a
+	color: $black
+	text-decoration: none
+	outline: none
+
+	&:hover
+		color: $white
+		text-decoration: none
+
+
+/*MEDIA STYLE*/
+
+@import "_blog-media.sass"

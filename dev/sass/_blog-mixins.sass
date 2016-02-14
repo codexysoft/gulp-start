@@ -1,0 +1,61 @@
+// backgound-color
+
+=bgc($color)
+	background-color: $color
+
+
+// box-sizing
+
+=br-box
+	box-sizing: border-box
+
+
+//border-radius
+
+=br-rad($val)
+	border-radius: $val
+
+
+//border-solid
+
+=br-solid($px,$color)
+	border: $px solid $color
+
+
+//padding
+
+=pad1($val)
+	padding: $val
+
+=pad2($val1,$val2)
+	padding: $val1 $val2
+
+=pad3($val1,$val2,$val3)
+	padding: $val1 $val2 $val3
+
+=pad4($val1,$val2,$val3,$val4)
+	padding: $val1 $val2 $val3 $val4
+
+
+//margin
+
+=marg1($val)
+	margin: $val
+
+=marg2($val1,$val2)
+	margin: $val1 $val2
+
+=marg3($val1,$val2,$val3)
+	margin: $val1 $val2 $val3
+
+=marg4($val1,$val2,$val3,$val4)
+	margin: $val1 $val2 $val3 $val4
+
+
+//placeholder
+
+=placeholder
+	$placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input"
+	@each $placeholder in $placeholders
+		&:#{$placeholder}-placeholder
+			@content
