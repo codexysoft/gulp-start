@@ -1,0 +1,33 @@
+.block-name
+  width: 400px
+
+  @mixin media $tablet
+    width: 200px
+
+  @mixin media $mobile
+    &:hover
+      width: 150px
+
+  &__input-default
+    &::placeholder
+      color: rgba($black, 0.5)
+
+  &__form
+    top: center
+    display: flex
+    flex: 1
+
+    @mixin media $mobile
+      left: center
+
+    &--fixed
+      clear: fix
+
+  &__icon
+    width: width('features-apps.svg')
+    height: height('features-apps.svg')
+    background-image: resolve('features-apps.svg')
+    background-image: svg("features-apps", "[color]: black; [stroke]: black; [fill]: black")
+    background-size: contain
+    background-repeat: no-repeat
+    background-position: center
