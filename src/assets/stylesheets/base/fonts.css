@@ -3,6 +3,6 @@
   src: url("../fonts/$general-font.eot")
   src: url("../fonts/$general-font.eot?#iefix") format('embedded-opentype'),
        url("../fonts/$general-font.woff2") format('woff2'),
-       url("../fonts/$general-font.woff") format('woff'),
+       url("../fonts/$general-font.woff") format('woff');
   font-style: normal
   font-weight: 400
