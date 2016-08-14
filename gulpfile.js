@@ -14,10 +14,6 @@ var gulp          = require('gulp'),
     rename        = require('gulp-rename'),
     browserSync   = require('browser-sync').create(),
     notify        = require('gulp-notify'),
-    minifycss     = require('gulp-minify-css'),
-    coffee        = require('gulp-coffee'),
-    gutil         = require('gulp-util'),
-    uglify        = require('gulp-uglify'),
     imagemin      = require('gulp-imagemin'),
     pngquant      = require('imagemin-pngquant'),
     svgmin        = require('gulp-svgmin'),
@@ -64,41 +60,6 @@ gulp.task('styles', function () {
   .pipe(gulp.dest('dist/css/'))
   .pipe(notify('Successfully!'))
   .pipe(browserSync.stream());
-});
-
-
-//CSS Minimization
-
-gulp.task('optimizationCSS', function() {
-  return gulp.src('Site/css/style.css')
-  .pipe(minifycss())
-  .pipe(rename({
-    suffix: '.min'
-    }))
-  .pipe(gulp.dest('Site/css'))
-  .pipe(notify('CSS successfully minifed'))
-  });
-
-
-//CoffeScript Compilation
-
-gulp.task('coffeescript', function() {
-  gulp.src('dev/coffescript/*.coffee')
-    .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(gulp.dest('Site/js'))
-    .pipe(notify('CoffeeScript successfully compiled'))
-    .pipe(browserSync.stream());
-});
-
-
-//OptimizationJS
-
-gulp.task('optimizationJS', function() {
-  return gulp.src('Site/js/script.js')
-    .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('Site/js'))
-    .pipe(notify('JS successfully minifed'))
 });
 
 //Optimization img(jpg,png)
