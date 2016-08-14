@@ -1,19 +1,29 @@
-var gulp         = require('gulp'),
-    sass         = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    rename       = require('gulp-rename'),
-    browserSync  = require('browser-sync').create(),
-    notify       = require('gulp-notify'),
-    minifycss    = require('gulp-minify-css'),
-    coffee       = require('gulp-coffee'),
-    gutil        = require('gulp-util'),
-    uglify       = require('gulp-uglify'),
-    imagemin     = require('gulp-imagemin'),
-    pngquant     = require('imagemin-pngquant'),
-    svgmin       = require('gulp-svgmin'),
-    ttf2woff     = require('gulp-ttf2woff'),
-    ttf2woff2    = require('gulp-ttf2woff2'),
-    ttf2eot      = require('gulp-ttf2eot');
+var gulp          = require('gulp'),
+    postcss       = require('gulp-postcss'),
+    autoprefixer  = require('autoprefixer'),
+    sugarss       = require('sugarss'),
+    postcssImport = require('postcss-import'),
+    cssMqpacker   = require('css-mqpacker'),
+    postcssNested = require('postcss-nested'),
+    precss        = require('precss'),
+    postcssCenter = require('postcss-center'),
+    postcssFlex   = require('postcss-flexbugs-fixes'),
+    postcssSvg    = require('postcss-svg'),
+    postcssAssets = require('postcss-assets')
+    rucksack      = require('gulp-rucksack'),
+    rename        = require('gulp-rename'),
+    browserSync   = require('browser-sync').create(),
+    notify        = require('gulp-notify'),
+    minifycss     = require('gulp-minify-css'),
+    coffee        = require('gulp-coffee'),
+    gutil         = require('gulp-util'),
+    uglify        = require('gulp-uglify'),
+    imagemin      = require('gulp-imagemin'),
+    pngquant      = require('imagemin-pngquant'),
+    svgmin        = require('gulp-svgmin'),
+    ttf2woff      = require('gulp-ttf2woff'),
+    ttf2woff2     = require('gulp-ttf2woff2'),
+    ttf2eot       = require('gulp-ttf2eot');
 
 
 //BrowserSync
@@ -21,24 +31,38 @@ var gulp         = require('gulp'),
 gulp.task('browser-sync', ['styles'], function() {
   browserSync.init({
     server: {
-        baseDir: "./Site"
+        baseDir: "./dist"
     },
-    notify: false
+    notify: false,
+    open: false
   });
 });
 
 
-//Compiling sass
+//Styles task
 
 gulp.task('styles', function () {
-  return gulp.src('dev/sass/*.sass')
-  .pipe(sass().on('error', sass.logError))
-  .pipe(rename({
-    basename: 'style'
+  var processors = [
+    postcssImport(),
+    autoprefixer({browsers: ['> 1%', 'last 4 version', 'IE 9', 'IE 10', 'IE 11', 'Opera 12', 'Firefox ESR']}),
+    postcssNested(),
+    precss(),
+    cssMqpacker(),
+    postcssSvg({paths: ['src/assets/img']}),
+    postcssAssets({loadPaths: ['src/assets/img/']}),
+    postcssCenter(),
+    postcssFlex(),
+  ];
+  return gulp.src('src/assets/stylesheets/style.css')
+  .pipe(postcss(processors, { parser: sugarss }))
+  .pipe(rucksack({
+    shorthandPosition: false,
+    quantityQueries: false,
+    alias: false,
+    fontPath: false
   }))
-  .pipe(autoprefixer({browsers: ['last 15 versions'], cascade: false}))
-  .pipe(gulp.dest('Site/css'))
-  .pipe(notify('SASS successfully compiled'))
+  .pipe(gulp.dest('dist/css/'))
+  .pipe(notify('Successfully!'))
   .pipe(browserSync.stream());
 });
 
@@ -104,25 +128,25 @@ gulp.task('optimizationSVG', function () {
 //ttf to woff
 
 gulp.task('ttf2woff', function(){
-  gulp.src(['dev/fonts/*.ttf'])
+  gulp.src(['src/assets/fonts/*.ttf'])
     .pipe(ttf2woff())
-    .pipe(gulp.dest('Site/fonts/'));
+    .pipe(gulp.dest('dist/fonts/'));
 });
 
 //ttf to woff2
 
 gulp.task('ttf2woff2', function(){
-  gulp.src(['dev/fonts/*.ttf'])
+  gulp.src(['src/assets/fonts/*.ttf'])
     .pipe(ttf2woff2())
-    .pipe(gulp.dest('Site/fonts/'));
+    .pipe(gulp.dest('dist/fonts/'));
 });
 
 //ttf to eot
 
 gulp.task('ttf2eot', function(){
-  gulp.src(['dev/fonts/*.ttf'])
+  gulp.src(['src/assets/fonts/*.ttf'])
     .pipe(ttf2eot())
-    .pipe(gulp.dest('Site/fonts/'));
+    .pipe(gulp.dest('dist/fonts/'));
 });
 
 gulp.task('convertFonts', ['ttf2woff', 'ttf2eot', 'ttf2woff2'], function() {
@@ -132,9 +156,8 @@ gulp.task('convertFonts', ['ttf2woff', 'ttf2eot', 'ttf2woff2'], function() {
 //Gulp watcher
 
 gulp.task('watch', function () {
-  gulp.watch('dev/sass/*.sass', ['styles']);
-  gulp.watch('dev/coffescript/*.coffee', ['coffeescript']);
-  gulp.watch('Site/*.html').on('change', browserSync.reload);
+  gulp.watch('src/assets/stylesheets/**/*.css', ['styles']);
+  gulp.watch('dist/**/*.html').on('change', browserSync.reload);
 });
 
 //Default Gulp task

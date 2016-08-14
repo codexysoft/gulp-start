@@ -3,3 +3,4 @@ bower_components/
 .DS_Store
 .sublime-gulp.cache
 package.json.sample
+dist/
