@@ -22,10 +22,9 @@ var gulp          = require('gulp'),
     ttf2woff2     = require('gulp-ttf2woff2'),
     ttf2eot       = require('gulp-ttf2eot');
 
-
 //BrowserSync
 
-gulp.task('browser-sync', ['styles', 'jade'], function() {
+gulp.task('browser-sync', ['assetsIMG', 'styles', 'jade'], function() {
   browserSync.init({
     server: {
         baseDir: "./dist"
@@ -34,7 +33,6 @@ gulp.task('browser-sync', ['styles', 'jade'], function() {
     open: false
   });
 });
-
 
 //Styles task
 
@@ -63,7 +61,6 @@ gulp.task('styles', function () {
   .pipe(browserSync.stream());
 });
 
-
 //Jade task
 
 gulp.task('jade', function() {
@@ -72,29 +69,33 @@ gulp.task('jade', function() {
   .pipe(gulp.dest('dist'));
 });
 
-//Optimization img(jpg,png)
+//Moving all img-assets to dist folder:
+
+//optimization img(jpg,png)
 
 gulp.task('optimizationIMG', () => {
-  return gulp.src('dev/img/forOptimization/*')
+  return gulp.src(['src/assets/img/**/*.png', 'src/assets/img/**/*.jpg'])
     .pipe(imagemin({
       progressive: true,
       svgoPlugins: [{removeViewBox: false}],
       use: [pngquant()]
     }))
-    .pipe(gulp.dest('Site/img/'));
+    .pipe(gulp.dest('dist/img/'));
 });
 
-
-//Optimization svg
+//optimization svg
 
 gulp.task('optimizationSVG', function () {
-  return gulp.src('dev/img/svg/*.svg')
+  return gulp.src('src/assets/img/**/*.svg')
     .pipe(svgmin())
-    .pipe(gulp.dest('Site/img/'));
+    .pipe(gulp.dest('dist/img/'));
 });
 
+gulp.task('assetsIMG', ['optimizationIMG', 'optimizationSVG'], function() {
 
-//Convert fonts(ttf to woff,woff2,eot)
+});
+
+//Convert fonts(ttf to woff,woff2,eot):
 
 //ttf to woff
 
