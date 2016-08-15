@@ -13,6 +13,7 @@ var gulp          = require('gulp'),
     rucksack      = require('gulp-rucksack'),
     rename        = require('gulp-rename'),
     browserSync   = require('browser-sync').create(),
+    jade          = require('gulp-jade'),
     notify        = require('gulp-notify'),
     imagemin      = require('gulp-imagemin'),
     pngquant      = require('imagemin-pngquant'),
@@ -24,7 +25,7 @@ var gulp          = require('gulp'),
 
 //BrowserSync
 
-gulp.task('browser-sync', ['styles'], function() {
+gulp.task('browser-sync', ['styles', 'jade'], function() {
   browserSync.init({
     server: {
         baseDir: "./dist"
@@ -60,6 +61,15 @@ gulp.task('styles', function () {
   .pipe(gulp.dest('dist/css/'))
   .pipe(notify('Successfully!'))
   .pipe(browserSync.stream());
+});
+
+
+//Jade task
+
+gulp.task('jade', function() {
+  return gulp.src('src/views/pages/**/*.jade')
+  .pipe(jade({pretty: true}))
+  .pipe(gulp.dest('dist'));
 });
 
 //Optimization img(jpg,png)
@@ -118,6 +128,7 @@ gulp.task('convertFonts', ['ttf2woff', 'ttf2eot', 'ttf2woff2'], function() {
 
 gulp.task('watch', function () {
   gulp.watch('src/assets/stylesheets/**/*.css', ['styles']);
+  gulp.watch('src/views/pages/**/*.jade', ['jade']);
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);
 });
 
