@@ -24,7 +24,7 @@ var gulp          = require('gulp'),
 
 //BrowserSync
 
-gulp.task('browser-sync', ['assetsIMG', 'styles', 'jade'], function() {
+gulp.task('browser-sync', ['styles', 'jade'], function() {
   browserSync.init({
     server: {
         baseDir: "./dist"
@@ -43,8 +43,8 @@ gulp.task('styles', function () {
     postcssNested(),
     precss(),
     cssMqpacker(),
-    postcssSvg({paths: ['src/assets/img']}),
-    postcssAssets({loadPaths: ['src/assets/img/']}),
+    postcssSvg({paths: ['dist/img']}),
+    postcssAssets({loadPaths: ['dist/img/']}),
     postcssCenter(),
     postcssFlex(),
   ];
@@ -91,10 +91,6 @@ gulp.task('optimizationSVG', function () {
     .pipe(gulp.dest('dist/img/'));
 });
 
-gulp.task('assetsIMG', ['optimizationIMG', 'optimizationSVG'], function() {
-
-});
-
 //Convert fonts(ttf to woff,woff2,eot):
 
 //ttf to woff
@@ -136,3 +132,9 @@ gulp.task('watch', function () {
 //Default Gulp task
 
 gulp.task('default', ['browser-sync', 'watch']);
+
+//Build assets task. Run first.
+
+gulp.task('build', ['convertFonts', 'optimizationIMG', 'optimizationSVG'], function() {
+
+});
