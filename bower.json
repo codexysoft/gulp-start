@@ -1,0 +1,11 @@
+{
+  "name": "gulp-project",
+  "description": "Gulp Project",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "1.12.4",
+    "normalize-css": "^4.2.0"
+  }
+}
