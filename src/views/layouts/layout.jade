@@ -15,6 +15,8 @@ html(lang='en')
     link(rel='stylesheet', href='css/style.css')
 
   body
-    include ../partials/footer.jade
-    block content
     include ../partials/header.jade
+    block content
+    include ../partials/footer.jade
+
+    script(src="js/scripts.js")
