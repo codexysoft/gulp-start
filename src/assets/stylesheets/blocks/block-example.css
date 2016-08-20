@@ -26,8 +26,8 @@
   &__icon
     width: width('features-apps.svg')
     height: height('features-apps.svg')
-    background-image: resolve('features-apps.svg')
-    background-image: svg("features-apps", "[color]: black; [stroke]: black; [fill]: black")
+    background-image: resolve('example.svg')
+    background-image: svg("example", "[color]: black; [stroke]: black; [fill]: black")
     background-size: contain
     background-repeat: no-repeat
     background-position: center
