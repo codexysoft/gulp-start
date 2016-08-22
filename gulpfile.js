@@ -1,6 +1,8 @@
 var gulp          = require('gulp'),
+    rigger        = require('gulp-rigger'),
     postcss       = require('gulp-postcss'),
     autoprefixer  = require('autoprefixer'),
+    uglify        = require('gulp-uglify'),
     sugarss       = require('sugarss'),
     postcssImport = require('postcss-import'),
     cssMqpacker   = require('css-mqpacker'),
@@ -24,7 +26,7 @@ var gulp          = require('gulp'),
 
 //BrowserSync
 
-gulp.task('browser-sync', ['styles', 'jade'], function() {
+gulp.task('browser-sync', ['styles', 'jade', 'js'], function() {
   browserSync.init({
     server: {
         baseDir: "./dist"
@@ -66,7 +68,16 @@ gulp.task('styles', function () {
 gulp.task('jade', function() {
   return gulp.src('src/views/pages/**/*.jade')
   .pipe(jade({pretty: true}))
-  .pipe(gulp.dest('dist'));
+  .pipe(gulp.dest('dist'))
+  .pipe(notify('Successfully!'));
+});
+
+gulp.task('js', function () {
+  gulp.src('src/assets/js/scripts.js')
+    .pipe(rigger())
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/js/'))
+    .pipe(notify('JS: Successfully!'));
 });
 
 //Moving all img-assets to dist folder:
@@ -125,8 +136,10 @@ gulp.task('convertFonts', ['ttf2woff', 'ttf2eot', 'ttf2woff2'], function() {
 
 gulp.task('watch', function () {
   gulp.watch('src/assets/stylesheets/**/*.css', ['styles']);
-  gulp.watch('src/views/pages/**/*.jade', ['jade']);
+  gulp.watch('src/views/**/*.jade', ['jade']);
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);
+  gulp.watch('src/assets/js/**/*.js', ['js']);
+  gulp.watch('dist/js/scripts.js').on('change', browserSync.reload);
 });
 
 //Default Gulp task
