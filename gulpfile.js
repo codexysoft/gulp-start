@@ -1,5 +1,6 @@
 var gulp          = require('gulp'),
     rigger        = require('gulp-rigger'),
+    include       = require('gulp-include'),
     postcss       = require('gulp-postcss'),
     autoprefixer  = require('autoprefixer'),
     uglify        = require('gulp-uglify'),
@@ -26,7 +27,7 @@ var gulp          = require('gulp'),
 
 //BrowserSync
 
-gulp.task('browser-sync', ['styles', 'jade', 'js'], function() {
+gulp.task('browser-sync', ['vendorStyles', 'styles', 'jade', 'js'], function() {
   browserSync.init({
     server: {
         baseDir: "./dist"
@@ -59,8 +60,18 @@ gulp.task('styles', function () {
     fontPath: false
   }))
   .pipe(gulp.dest('dist/css/'))
-  .pipe(notify('Successfully!'))
+  .pipe(notify('STYLES: Successfully!'))
   .pipe(browserSync.stream());
+});
+
+//Vendor files task
+
+gulp.task('vendorStyles', function() {
+  return gulp.src('src/assets/vendor/vendor.css')
+  .pipe(include())
+    .on('error', console.log)
+  .pipe(gulp.dest('dist/css/'))
+  .pipe(notify('VENDOR: Successfully!'));
 });
 
 //Jade task
@@ -69,7 +80,7 @@ gulp.task('jade', function() {
   return gulp.src('src/views/pages/**/*.jade')
   .pipe(jade({pretty: true}))
   .pipe(gulp.dest('dist'))
-  .pipe(notify('Successfully!'));
+  .pipe(notify('JADE: Successfully!'));
 });
 
 gulp.task('js', function () {
@@ -136,6 +147,7 @@ gulp.task('convertFonts', ['ttf2woff', 'ttf2eot', 'ttf2woff2'], function() {
 
 gulp.task('watch', function () {
   gulp.watch('src/assets/stylesheets/**/*.css', ['styles']);
+  gulp.watch('src/assets/vendor/**/*.css', ['vendorStyles']);
   gulp.watch('src/views/**/*.jade', ['jade']);
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);
   gulp.watch('src/assets/js/**/*.js', ['js']);
