@@ -24,8 +24,8 @@
       clear: fix
 
   &__icon
-    width: width('features-apps.svg')
-    height: height('features-apps.svg')
+    width: width('example.svg')
+    height: height('example.svg')
     background-image: resolve('example.svg')
     background-image: svg("example", "[color]: black; [stroke]: black; [fill]: black")
     background-size: contain
