@@ -1,5 +1,4 @@
 var gulp          = require('gulp'),
-    rigger        = require('gulp-rigger'),
     include       = require('gulp-include'),
     postcss       = require('gulp-postcss'),
     autoprefixer  = require('autoprefixer'),
@@ -85,7 +84,7 @@ gulp.task('jade', function() {
 
 gulp.task('js', function () {
   gulp.src('src/assets/js/scripts.js')
-    .pipe(rigger())
+    .pipe(include())
     .pipe(uglify())
     .pipe(gulp.dest('dist/js/'))
     .pipe(notify('JS: Successfully!'));
