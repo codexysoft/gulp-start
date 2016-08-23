@@ -1,4 +1,5 @@
 var gulp          = require('gulp'),
+    runSequence   = require('run-sequence'),
     include       = require('gulp-include'),
     postcss       = require('gulp-postcss'),
     autoprefixer  = require('autoprefixer'),
@@ -26,7 +27,7 @@ var gulp          = require('gulp'),
 
 //BrowserSync
 
-gulp.task('browser-sync', ['vendorStyles', 'styles', 'jade', 'js'], function() {
+gulp.task('browser-sync', function() {
   browserSync.init({
     server: {
         baseDir: "./dist"
@@ -119,7 +120,7 @@ gulp.task('optimizationSVG', function () {
 gulp.task('ttf2woff', function(){
   gulp.src(['src/assets/fonts/*.ttf'])
     .pipe(ttf2woff())
-    .pipe(gulp.dest('dist/fonts/'));
+    .pipe(gulp.dest('src/assets/fonts/'));
 });
 
 //ttf to woff2
@@ -127,7 +128,7 @@ gulp.task('ttf2woff', function(){
 gulp.task('ttf2woff2', function(){
   gulp.src(['src/assets/fonts/*.ttf'])
     .pipe(ttf2woff2())
-    .pipe(gulp.dest('dist/fonts/'));
+    .pipe(gulp.dest('src/assets/fonts/'));
 });
 
 //ttf to eot
@@ -135,11 +136,18 @@ gulp.task('ttf2woff2', function(){
 gulp.task('ttf2eot', function(){
   gulp.src(['src/assets/fonts/*.ttf'])
     .pipe(ttf2eot())
-    .pipe(gulp.dest('dist/fonts/'));
+    .pipe(gulp.dest('src/assets/fonts/'));
 });
 
 gulp.task('convertFonts', ['ttf2woff', 'ttf2eot', 'ttf2woff2'], function() {
 
+});
+
+//Task moving fonts to dist folder
+
+gulp.task('fonts', function(){
+  gulp.src(['src/assets/fonts/**/*'])
+    .pipe(gulp.dest('dist/fonts/'));
 });
 
 //Gulp watcher
@@ -155,10 +163,12 @@ gulp.task('watch', function () {
 
 //Default Gulp task
 
-gulp.task('default', ['browser-sync', 'watch']);
+gulp.task('default', function(callback) {
+  runSequence('build', ['vendorStyles', 'styles', 'jade', 'js'], 'watch', 'browser-sync', callback);
+});
 
 //Build assets task. Run first.
 
-gulp.task('build', ['convertFonts', 'optimizationIMG', 'optimizationSVG'], function() {
+gulp.task('build', ['fonts', 'optimizationIMG', 'optimizationSVG'], function() {
 
 });

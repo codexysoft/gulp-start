@@ -26,6 +26,7 @@
     "postcss-nested": "^1.0.0",
     "postcss-svg": "^1.0.6",
     "precss": "^1.4.0",
+    "run-sequence": "^1.2.2",
     "sugarss": "^0.1.5"
   }
 }
