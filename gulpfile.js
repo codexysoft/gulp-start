@@ -4,16 +4,10 @@ var gulp          = require('gulp'),
     postcss       = require('gulp-postcss'),
     autoprefixer  = require('autoprefixer'),
     uglify        = require('gulp-uglify'),
-    sugarss       = require('sugarss'),
-    postcssImport = require('postcss-import'),
     cssMqpacker   = require('css-mqpacker'),
-    postcssNested = require('postcss-nested'),
-    precss        = require('precss'),
-    postcssCenter = require('postcss-center'),
     postcssFlex   = require('postcss-flexbugs-fixes'),
     postcssSvg    = require('postcss-svg'),
     postcssAssets = require('postcss-assets')
-    rucksack      = require('gulp-rucksack'),
     rename        = require('gulp-rename'),
     browserSync   = require('browser-sync').create(),
     jade          = require('gulp-jade'),
@@ -41,24 +35,14 @@ gulp.task('browser-sync', function() {
 
 gulp.task('styles', function () {
   var processors = [
-    postcssImport(),
     autoprefixer({browsers: ['> 1%', 'last 4 version', 'IE 9', 'IE 10', 'IE 11', 'Opera 12', 'Firefox ESR']}),
-    postcssNested(),
-    precss(),
     cssMqpacker(),
     postcssSvg({paths: ['dist/img']}),
     postcssAssets({loadPaths: ['dist/img/']}),
-    postcssCenter(),
     postcssFlex(),
   ];
   return gulp.src('src/assets/stylesheets/style.css')
-  .pipe(postcss(processors, { parser: sugarss }))
-  .pipe(rucksack({
-    shorthandPosition: false,
-    quantityQueries: false,
-    alias: false,
-    fontPath: false
-  }))
+  .pipe(postcss(processors))
   .pipe(gulp.dest('dist/css/'))
   .pipe(notify('STYLES: Successfully!'))
   .pipe(browserSync.stream());
