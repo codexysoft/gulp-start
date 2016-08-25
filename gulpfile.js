@@ -1,6 +1,7 @@
 var gulp          = require('gulp'),
     runSequence   = require('run-sequence'),
     include       = require('gulp-include'),
+    sass          = require('gulp-sass'),
     postcss       = require('gulp-postcss'),
     autoprefixer  = require('autoprefixer'),
     uglify        = require('gulp-uglify'),
@@ -41,7 +42,8 @@ gulp.task('styles', function () {
     postcssAssets({loadPaths: ['dist/img/']}),
     postcssFlex(),
   ];
-  return gulp.src('src/assets/stylesheets/style.css')
+  return gulp.src('src/assets/stylesheets/style.sass')
+  .pipe(sass().on('error', sass.logError))
   .pipe(postcss(processors))
   .pipe(gulp.dest('dist/css/'))
   .pipe(notify('STYLES: Successfully!'))
@@ -137,7 +139,7 @@ gulp.task('fonts', function(){
 //Gulp watcher
 
 gulp.task('watch', function () {
-  gulp.watch('src/assets/stylesheets/**/*.css', ['styles']);
+  gulp.watch('src/assets/stylesheets/**/*.sass', ['styles']);
   gulp.watch('src/assets/vendor/**/*.css', ['vendorStyles']);
   gulp.watch('src/views/**/*.jade', ['jade']);
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Gulp Project",
   "devDependencies": {
+    "autoprefixer": "^6.4.0",
     "browser-sync": "^2.14.0",
     "css-mqpacker": "^5.0.1",
     "gulp": "^3.9.1",
@@ -12,6 +13,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-postcss": "^6.1.1",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
     "gulp-svgmin": "^1.2.2",
     "gulp-ttf2eot": "^1.1.1",
     "gulp-ttf2woff": "^1.1.0",
