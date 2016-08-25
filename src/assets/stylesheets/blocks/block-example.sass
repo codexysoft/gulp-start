@@ -1,10 +1,10 @@
 .block-name
   width: 400px
 
-  @mixin media $tablet
+  +media($tablet)
     width: 200px
 
-  @mixin media $mobile
+  +media($mobile)
     &:hover
       width: 150px
 
@@ -17,11 +17,11 @@
     display: flex
     flex: 1
 
-    @mixin media $mobile
+    +media($mobile)
       left: center
 
     &--fixed
-      clear: fix
+      +clearfix
 
   &__icon
     width: width('example.svg')
