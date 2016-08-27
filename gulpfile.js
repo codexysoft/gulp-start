@@ -50,16 +50,6 @@ gulp.task('styles', function () {
   .pipe(browserSync.stream());
 });
 
-//Vendor files task
-
-gulp.task('vendorStyles', function() {
-  return gulp.src('src/assets/vendor/vendor.css')
-  .pipe(include())
-    .on('error', console.log)
-  .pipe(gulp.dest('dist/css/'))
-  .pipe(notify('VENDOR: Successfully!'));
-});
-
 //Jade task
 
 gulp.task('jade', function() {
@@ -140,7 +130,6 @@ gulp.task('fonts', function(){
 
 gulp.task('watch', function () {
   gulp.watch('src/assets/stylesheets/**/*.sass', ['styles']);
-  gulp.watch('src/assets/vendor/**/*.css', ['vendorStyles']);
   gulp.watch('src/views/**/*.jade', ['jade']);
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);
   gulp.watch('src/assets/js/**/*.js', ['js']);
@@ -150,7 +139,7 @@ gulp.task('watch', function () {
 //Default Gulp task
 
 gulp.task('default', function(callback) {
-  runSequence('build', ['vendorStyles', 'styles', 'jade', 'js'], 'watch', 'browser-sync', callback);
+  runSequence('build', ['styles', 'jade', 'js'], 'watch', 'browser-sync', callback);
 });
 
 //Build assets task. Run first.
