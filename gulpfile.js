@@ -27,7 +27,7 @@ gulp.task('browser-sync', function() {
     server: {
         baseDir: "./dist"
     },
-    notify: false,
+    notify: true,
     open: false
   });
 });
@@ -43,10 +43,9 @@ gulp.task('styles', function () {
     postcssFlex(),
   ];
   return gulp.src('src/assets/stylesheets/style.sass')
-  .pipe(sass().on('error', sass.logError))
+  .pipe(sass().on('error', notify.onError()))
   .pipe(postcss(processors))
   .pipe(gulp.dest('dist/css/'))
-  .pipe(notify('STYLES: Successfully!'))
   .pipe(browserSync.stream());
 });
 
@@ -54,17 +53,19 @@ gulp.task('styles', function () {
 
 gulp.task('jade', function() {
   return gulp.src('src/views/pages/**/*.jade')
-  .pipe(jade({pretty: true}))
-  .pipe(gulp.dest('dist'))
-  .pipe(notify('JADE: Successfully!'));
+  .pipe(jade({pretty: true}).on('error', notify.onError(function (error) {
+    return 'Message to the notifier: ' + error.message;
+  })))
+  .pipe(gulp.dest('dist'));
 });
 
 gulp.task('js', function () {
   gulp.src('src/assets/js/scripts.js')
     .pipe(include())
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/js/'))
-    .pipe(notify('JS: Successfully!'));
+    .pipe(uglify().on('error', notify.onError(function (error) {
+      return 'Message to the notifier: ' + error.message;
+    })))
+    .pipe(gulp.dest('dist/js/'));
 });
 
 //Moving all img-assets to dist folder:
