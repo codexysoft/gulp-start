@@ -3,6 +3,8 @@ var gulp          = require('gulp'),
     include       = require('gulp-include'),
     sass          = require('gulp-sass'),
     postcss       = require('gulp-postcss'),
+    argv          = require('yargs').argv,
+    gulpif        = require('gulp-if'),
     autoprefixer  = require('autoprefixer'),
     uglify        = require('gulp-uglify'),
     cssMqpacker   = require('css-mqpacker'),
@@ -13,6 +15,7 @@ var gulp          = require('gulp'),
     browserSync   = require('browser-sync').create(),
     jade          = require('gulp-jade'),
     notify        = require('gulp-notify'),
+    cssnano       = require('gulp-cssnano'),
     imagemin      = require('gulp-imagemin'),
     pngquant      = require('imagemin-pngquant'),
     svgmin        = require('gulp-svgmin'),
@@ -45,6 +48,7 @@ gulp.task('styles', function () {
   return gulp.src('src/assets/stylesheets/style.sass')
   .pipe(sass().on('error', notify.onError()))
   .pipe(postcss(processors))
+  .pipe(gulpif(argv.production, cssnano()))
   .pipe(gulp.dest('dist/css/'))
   .pipe(browserSync.stream());
 });
@@ -62,9 +66,9 @@ gulp.task('jade', function() {
 gulp.task('js', function () {
   gulp.src('src/assets/js/scripts.js')
     .pipe(include())
-    .pipe(uglify().on('error', notify.onError(function (error) {
+    .pipe(gulpif(argv.production, uglify().on('error', notify.onError(function (error) {
       return 'Message to the notifier: ' + error.message;
-    })))
+    }))))
     .pipe(gulp.dest('dist/js/'));
 });
 
