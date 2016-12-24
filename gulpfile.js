@@ -68,8 +68,6 @@ gulp.task('js', function () {
     .pipe(gulp.dest('dist/js/'));
 });
 
-//Moving all img-assets to dist folder:
-
 //optimization img(jpg,png)
 
 gulp.task('optimizationIMG', () => {
@@ -140,11 +138,5 @@ gulp.task('watch', function () {
 //Default Gulp task
 
 gulp.task('default', function(callback) {
-  runSequence('build', ['styles', 'jade', 'js'], 'watch', 'browser-sync', callback);
-});
-
-//Build assets task. Run first.
-
-gulp.task('build', ['fonts', 'optimizationIMG', 'optimizationSVG'], function() {
-
+  runSequence(['fonts', 'optimizationIMG', 'optimizationSVG'], ['styles', 'jade', 'js'], 'watch', 'browser-sync', callback);
 });
