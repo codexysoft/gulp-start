@@ -3,6 +3,7 @@ var gulp          = require('gulp'),
     include       = require('gulp-include'),
     sass          = require('gulp-sass'),
     postcss       = require('gulp-postcss'),
+    sourcemaps    = require('gulp-sourcemaps'),
     argv          = require('yargs').argv,
     gulpif        = require('gulp-if'),
     autoprefixer  = require('autoprefixer'),
@@ -46,9 +47,12 @@ gulp.task('styles', function () {
     postcssFlex(),
   ];
   return gulp.src('src/assets/stylesheets/style.sass')
+  .pipe(sourcemaps.init())
+  .pipe(gulpif(!argv.production, sourcemaps.init()))
   .pipe(sass().on('error', notify.onError()))
   .pipe(postcss(processors))
-  .pipe(gulpif(argv.production, cssnano()))
+  .pipe(cssnano())
+  .pipe(gulpif(!argv.production, sourcemaps.write()))
   .pipe(gulp.dest('dist/css/'))
   .pipe(browserSync.stream());
 });
@@ -66,9 +70,11 @@ gulp.task('jade', function() {
 gulp.task('js', function () {
   gulp.src('src/assets/js/scripts.js')
     .pipe(include())
-    .pipe(gulpif(argv.production, uglify().on('error', notify.onError(function (error) {
+    .pipe(gulpif(!argv.production, sourcemaps.init()))
+    .pipe(uglify().on('error', notify.onError(function (error) {
       return 'Message to the notifier: ' + error.message;
-    }))))
+    })))
+    .pipe(gulpif(!argv.production, sourcemaps.write()))
     .pipe(gulp.dest('dist/js/'));
 });
 
