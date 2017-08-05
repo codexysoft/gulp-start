@@ -69,7 +69,10 @@ gulp.task('jade', function() {
 
 gulp.task('js', function () {
   gulp.src('src/assets/js/scripts.js')
-    .pipe(include({includePaths: ['src/assets/vendor', 'src/assets/js']}))
+    .pipe(include({
+      hardFail: true,
+      includePaths: ['src/assets/vendor', 'src/assets/js']
+    }).on('error', notify.onError()))
     .pipe(gulpif(!argv.production, sourcemaps.init()))
     .pipe(uglify().on('error', notify.onError(function (error) {
       return 'Message to the notifier: ' + error.message;
