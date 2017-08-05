@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "jquery": "1.12.4",
-    "bourbon": "^4.3.4"
+    "bourbon": "^4.3.4",
+    "bootstrap-sass": "^3.3.7"
   }
 }
