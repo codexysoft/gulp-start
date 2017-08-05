@@ -51,7 +51,7 @@ gulp.task('styles', function () {
   .pipe(gulpif(!argv.production, sourcemaps.init()))
   .pipe(sass({includePaths: ['src/assets/vendor']}).on('error', notify.onError()))
   .pipe(postcss(processors))
-  // .pipe(cssnano())
+  .pipe(cssnano())
   .pipe(gulpif(!argv.production, sourcemaps.write()))
   .pipe(gulp.dest('dist/css/'))
   .pipe(browserSync.stream());
