@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Gulp Project",
   "devDependencies": {
-    "autoprefixer": "^7.1.2",
     "browser-sync": "^2.14.0",
     "css-mqpacker": "^6.0.1",
     "gulp": "^3.9.1",

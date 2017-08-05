@@ -40,7 +40,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('styles', function () {
   var processors = [
-    autoprefixer({browsers: ['> 1%', 'last 4 version', 'IE 9', 'IE 10', 'IE 11', 'Opera 12', 'Firefox ESR']}),
+    autoprefixer(),
     cssMqpacker(),
     postcssSvg({paths: ['dist/img']}),
     postcssAssets({loadPaths: ['dist/img/']}),
@@ -51,7 +51,7 @@ gulp.task('styles', function () {
   .pipe(gulpif(!argv.production, sourcemaps.init()))
   .pipe(sass().on('error', notify.onError()))
   .pipe(postcss(processors))
-  .pipe(cssnano())
+  // .pipe(cssnano())
   .pipe(gulpif(!argv.production, sourcemaps.write()))
   .pipe(gulp.dest('dist/css/'))
   .pipe(browserSync.stream());
