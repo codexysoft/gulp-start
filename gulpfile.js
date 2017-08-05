@@ -49,7 +49,7 @@ gulp.task('styles', function () {
   return gulp.src('src/assets/stylesheets/style.sass')
   .pipe(sourcemaps.init())
   .pipe(gulpif(!argv.production, sourcemaps.init()))
-  .pipe(sass().on('error', notify.onError()))
+  .pipe(sass({includePaths: ['src/assets/vendor']}).on('error', notify.onError()))
   .pipe(postcss(processors))
   // .pipe(cssnano())
   .pipe(gulpif(!argv.production, sourcemaps.write()))
@@ -69,7 +69,7 @@ gulp.task('jade', function() {
 
 gulp.task('js', function () {
   gulp.src('src/assets/js/scripts.js')
-    .pipe(include())
+    .pipe(include({includePaths: ['src/assets/vendor', 'src/assets/js']}))
     .pipe(gulpif(!argv.production, sourcemaps.init()))
     .pipe(uglify().on('error', notify.onError(function (error) {
       return 'Message to the notifier: ' + error.message;
