@@ -14,7 +14,7 @@ var gulp          = require('gulp'),
     postcssAssets = require('postcss-assets')
     rename        = require('gulp-rename'),
     browserSync   = require('browser-sync').create(),
-    jade          = require('gulp-jade'),
+    pug          = require('gulp-pug'),
     notify        = require('gulp-notify'),
     cssnano       = require('gulp-cssnano'),
     imagemin      = require('gulp-imagemin'),
@@ -57,11 +57,11 @@ gulp.task('styles', function () {
   .pipe(browserSync.stream());
 });
 
-//Jade task
+//Pug task
 
-gulp.task('jade', function() {
-  return gulp.src('src/views/pages/**/*.jade')
-  .pipe(jade({pretty: true}).on('error', notify.onError(function (error) {
+gulp.task('pug', function() {
+  return gulp.src('src/views/pages/**/*.pug')
+  .pipe(pug({pretty: true}).on('error', notify.onError(function (error) {
     return 'Message to the notifier: ' + error.message;
   })))
   .pipe(gulp.dest('dist'));
@@ -142,7 +142,7 @@ gulp.task('fonts', function(){
 
 gulp.task('watch', function () {
   gulp.watch('src/assets/stylesheets/**/*.sass', ['styles']);
-  gulp.watch('src/views/**/*.jade', ['jade']);
+  gulp.watch('src/views/**/*.pug', ['pug']);
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);
   gulp.watch('src/assets/js/**/*.js', ['js']);
   gulp.watch('dist/js/scripts.js').on('change', browserSync.reload);
@@ -151,5 +151,5 @@ gulp.task('watch', function () {
 //Default Gulp task
 
 gulp.task('default', function(callback) {
-  runSequence(['fonts', 'optimizationIMG', 'optimizationSVG'], ['styles', 'jade', 'js'], 'watch', 'browser-sync', callback);
+  runSequence(['fonts', 'optimizationIMG', 'optimizationSVG'], ['styles', 'pug', 'js'], 'watch', 'browser-sync', callback);
 });
