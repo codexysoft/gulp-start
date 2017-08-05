@@ -6,6 +6,6 @@
   "private": true,
   "dependencies": {
     "jquery": "1.12.4",
-    "bourbon": "^4.2.7"
+    "bourbon": "^4.3.4"
   }
 }
