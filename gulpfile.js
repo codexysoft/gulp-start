@@ -13,8 +13,9 @@ var gulp          = require('gulp'),
     postcssSvg    = require('postcss-svg'),
     postcssAssets = require('postcss-assets')
     rename        = require('gulp-rename'),
+    clean         = require('gulp-clean'),
     browserSync   = require('browser-sync').create(),
-    pug          = require('gulp-pug'),
+    pug           = require('gulp-pug'),
     notify        = require('gulp-notify'),
     cssnano       = require('gulp-cssnano'),
     imagemin      = require('gulp-imagemin'),
@@ -136,6 +137,14 @@ gulp.task('convertFonts', ['ttf2woff', 'ttf2eot', 'ttf2woff2'], function() {
 gulp.task('fonts', function(){
   gulp.src(['src/assets/fonts/**/*'])
     .pipe(gulp.dest('dist/fonts/'));
+});
+
+// Clean task
+
+gulp.task('clean', function() {
+  return gulp.src('dist', {read: false})
+    .pipe(clean())
+    .pipe(notify('dist folder was removed'));
 });
 
 //Gulp watcher
