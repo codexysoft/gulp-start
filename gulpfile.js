@@ -11,6 +11,7 @@ var gulp          = require('gulp'),
     cssMqpacker   = require('css-mqpacker'),
     postcssFlex   = require('postcss-flexbugs-fixes'),
     postcssSvg    = require('postcss-svg'),
+    svgSymbols    = require('gulp-svg-symbols'),
     postcssAssets = require('postcss-assets')
     rename        = require('gulp-rename'),
     clean         = require('gulp-clean'),
@@ -97,9 +98,17 @@ gulp.task('optimizationIMG', () => {
 //optimization svg
 
 gulp.task('optimizationSVG', function () {
-  return gulp.src('src/assets/img/**/*.svg')
+  return gulp.src(['src/assets/img/**/*.svg', '!src/assets/img/sprites/**/*.svg'])
     .pipe(svgmin())
     .pipe(gulp.dest('dist/img/'));
+});
+
+gulp.task('svgSprite', function () {
+  return gulp.src('src/assets/img/sprites/**/*.svg')
+    .pipe(svgSymbols({
+      templates: ['default-svg']
+    }))
+    .pipe(gulp.dest('dist/img'));
 });
 
 //Convert fonts(ttf to woff,woff2,eot):
@@ -160,5 +169,5 @@ gulp.task('watch', function () {
 //Default Gulp task
 
 gulp.task('default', function(callback) {
-  runSequence(['fonts', 'optimizationIMG', 'optimizationSVG'], ['styles', 'pug', 'js'], 'watch', 'browser-sync', callback);
+  runSequence(['fonts', 'optimizationIMG', 'optimizationSVG', 'svgSprite'], ['styles', 'pug', 'js'], 'watch', 'browser-sync', callback);
 });
