@@ -1,0 +1,42 @@
+.block-name
+  width: 400px
+
+  +media($tablet)
+    width: 200px
+
+  +media($mobile, min)
+    &:hover
+      width: 150px
+
+  &__input-default
+    +placeholder
+      color: rgba($black, 0.5)
+
+  &__form
+    top: center
+    display: flex
+    flex: 1
+
+    +first(1)
+      display: block
+    
+    +last(5)
+      display: inline-block
+
+    +each(3)
+      display: inline-flex
+    
+    +media($mobile)
+      left: center
+
+    &--fixed
+      +clearfix
+
+  &__icon
+    width: width('example.svg')
+    height: height('example.svg')
+    background-image: resolve('example.svg')
+    background-image: svg("example", "[color]: black; [stroke]: black; [fill]: black")
+    background-size: contain
+    background-repeat: no-repeat
+    background-position: center
