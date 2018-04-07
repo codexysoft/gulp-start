@@ -8,7 +8,6 @@ var gulp          = require('gulp'),
     gulpif        = require('gulp-if'),
     autoprefixer  = require('autoprefixer'),
     uglify        = require('gulp-uglify'),
-    cssMqpacker   = require('css-mqpacker'),
     postcssFlex   = require('postcss-flexbugs-fixes'),
     postcssSvg    = require('postcss-svg'),
     svgSymbols    = require('gulp-svg-symbols'),
@@ -43,7 +42,6 @@ gulp.task('browser-sync', function() {
 gulp.task('styles', function () {
   var processors = [
     autoprefixer(),
-    cssMqpacker(),
     postcssSvg({paths: ['dist/img']}),
     postcssAssets({loadPaths: ['dist/img/']}),
     postcssFlex(),

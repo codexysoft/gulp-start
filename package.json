@@ -4,7 +4,6 @@
   "description": "Gulp Project",
   "devDependencies": {
     "browser-sync": "^2.14.0",
-    "css-mqpacker": "^6.0.1",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-cssnano": "^2.1.2",
