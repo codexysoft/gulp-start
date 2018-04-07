@@ -7,7 +7,6 @@
   "dependencies": {
     "jquery": "1.12.4",
     "bourbon": "^4.3.4",
-    "bootstrap-sass": "^3.3.7",
     "family.scss": "^1.0.8"
   }
 }
