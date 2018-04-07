@@ -1,13 +1,10 @@
-*
-  box-sizing: border-box
-  
-  &:before, &:after
-    box-sizing: border-box
+html
+  font-size: 16px
 
-h1, h2, h3, h4, h5, h6,
-form, label, legend
-  margin: 0
-  padding: 0
+body
+  font-family: $general-font, $font-family-base
+  background-color: $white
+  color: $black
 
 input,
 textarea,
@@ -25,16 +22,11 @@ select:-moz-focusring
   color: transparent
   text-shadow: 0 0 0 #000
 
-body
-  background-color: $white
-  color: $black
-  font-family: $general-font
-
 a
   color: $black
-  text-decoration: none
-  outline: none
 
   &:hover
-    color: $white
     text-decoration: none
+
+textarea
+  resize: none
