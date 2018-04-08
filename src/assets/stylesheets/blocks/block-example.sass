@@ -1,5 +1,7 @@
 .block-name
   width: 400px
+  font-size: 20px
+  margin-top: em(100px, 20px)
 
   +media($tablet)
     width: 200px
@@ -19,13 +21,13 @@
 
     +first(1)
       display: block
-    
+
     +last(5)
       display: inline-block
 
     +each(3)
       display: inline-flex
-    
+
     +media($mobile)
       left: center
 
