@@ -7,6 +7,7 @@ var gulp          = require('gulp'),
     argv          = require('yargs').argv,
     gulpif        = require('gulp-if'),
     autoprefixer  = require('autoprefixer'),
+    babel         = require('gulp-babel'),
     uglify        = require('gulp-uglify'),
     postcssFlex   = require('postcss-flexbugs-fixes'),
     postcssSvg    = require('postcss-svg'),
@@ -74,6 +75,9 @@ gulp.task('js', function () {
       includePaths: ['src/assets/vendor', 'src/assets/js']
     }).on('error', notify.onError()))
     .pipe(gulpif(!argv.production, sourcemaps.init()))
+    .pipe(babel({
+      presets: ['env']
+    }))
     .pipe(uglify().on('error', notify.onError(function (error) {
       return 'Message to the notifier: ' + error.message;
     })))

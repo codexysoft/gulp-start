@@ -1,5 +1,3 @@
-$(document).ready(function() {
-
+$(document).ready(() => {
   console.log('block-example');
-
 });
