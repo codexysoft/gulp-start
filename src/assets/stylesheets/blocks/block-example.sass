@@ -1,5 +1,5 @@
 .block-name
-  width: 400px
+  +size(400px, 200px)
   font-size: 20px
   margin-top: em(100px, 20px)
 
@@ -11,7 +11,7 @@
       width: 150px
 
   &__input-default
-    +placeholder
+    &::placeholder
       color: rgba($black, 0.5)
 
   &__form
