@@ -8,6 +8,6 @@
     "jquery": "1.12.4",
     "bourbon": "^5.0.0",
     "family.scss": "^1.0.8",
-    "bootstrap": "^4.0.0"
+    "bootstrap": "^4.1.0"
   }
 }
