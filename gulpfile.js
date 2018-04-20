@@ -44,7 +44,7 @@ gulp.task('browser-sync', function() {
 gulp.task('styles', function () {
   var processors = [
     autoprefixer(),
-    postcssSvg({paths: ['dist/img']}),
+    postcssSvg({paths: ['dist/img'], silent: false}),
     postcssAssets({loadPaths: ['dist/img/']}),
     postcssFlex(),
   ];
@@ -52,7 +52,7 @@ gulp.task('styles', function () {
   .pipe(sourcemaps.init())
   .pipe(gulpif(!argv.production, sourcemaps.init()))
   .pipe(sass({includePaths: ['src/assets/vendor']}).on('error', notify.onError()))
-  .pipe(postcss(processors))
+  .pipe(postcss(processors).on('error', notify.onError()))
   .pipe(cssnano())
   .pipe(gulpif(!argv.production, sourcemaps.write()))
   .pipe(gulp.dest('dist/css/'))
