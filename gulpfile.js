@@ -11,6 +11,7 @@ var gulp          = require('gulp'),
     uglify        = require('gulp-uglify'),
     postcssFlex   = require('postcss-flexbugs-fixes'),
     postcssSvg    = require('postcss-svg'),
+    svgSprite     = require('gulp-svg-sprite'),
     svgSymbols    = require('gulp-svg-symbols'),
     postcssAssets = require('postcss-assets')
     rename        = require('gulp-rename'),
@@ -105,8 +106,23 @@ gulp.task('optimizationSVG', function () {
     .pipe(gulp.dest('dist/img/'));
 });
 
-gulp.task('svgSprite', function () {
-  return gulp.src('src/assets/img/sprites/**/*.svg')
+gulp.task('svgFragmentsSprite', function () {
+  return gulp.src('src/assets/img/sprites/svg-fragments/**/*.svg')
+    .pipe(svgSprite({
+      mode: {
+        view: {
+          dest: '.',
+          sprite: 'svg-fragments.svg',
+          bust: false
+        }
+      }
+    }))
+    .pipe(svgmin({plugins: [{cleanupIDs: false}]}))
+    .pipe(gulp.dest('dist/img'));
+});
+
+gulp.task('svgSymbolSprite', function () {
+  return gulp.src('src/assets/img/sprites/svg-symbols/**/*.svg')
     .pipe(svgSymbols({
       templates: ['default-svg']
     }))
@@ -171,5 +187,5 @@ gulp.task('watch', function () {
 //Default Gulp task
 
 gulp.task('default', function(callback) {
-  runSequence(['fonts', 'optimizationIMG', 'optimizationSVG', 'svgSprite'], ['styles', 'pug', 'js'], 'watch', 'browser-sync', callback);
+  runSequence(['fonts', 'optimizationIMG', 'optimizationSVG', 'svgSymbolSprite', 'svgFragmentsSprite'], ['styles', 'pug', 'js'], 'watch', 'browser-sync', callback);
 });
