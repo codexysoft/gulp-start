@@ -6,8 +6,8 @@
   "private": true,
   "dependencies": {
     "jquery": "1.12.4",
-    "bourbon": "^5.0.0",
+    "bourbon": "^5.1.0",
     "family.scss": "^1.0.8",
-    "bootstrap": "^4.1.0"
+    "bootstrap": "^4.1.3"
   }
 }
