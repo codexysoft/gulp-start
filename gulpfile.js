@@ -77,7 +77,7 @@ gulp.task('js', function () {
     }).on('error', notify.onError()))
     .pipe(gulpif(!argv.production, sourcemaps.init()))
     .pipe(babel({
-      presets: ['env']
+      presets: ['@babel/env']
     }))
     .pipe(uglify().on('error', notify.onError(function (error) {
       return 'Message to the notifier: ' + error.message;
