@@ -3,5 +3,6 @@ bower_components/
 .DS_Store
 .sublime-gulp.cache
 package.json.sample
+package-lock.json
 dist/
 src/assets/vendor
