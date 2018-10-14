@@ -13,7 +13,7 @@ $white: #fff
 
 // Media brackpoints:
 
-$desktop-small: 1199px
-$tablet: 991px
-$mobile: 767px
-$mobile-small: 575px
+$desktop-small: map-get($grid-breakpoints, xl) - 1 //1199px
+$tablet: map-get($grid-breakpoints, lg) - 1 //991px
+$mobile: map-get($grid-breakpoints, md) - 1 //767px
+$mobile-small: map-get($grid-breakpoints, sm) - 1 //575px
