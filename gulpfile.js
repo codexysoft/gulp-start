@@ -1,5 +1,4 @@
 var gulp          = require('gulp'),
-    runSequence   = require('run-sequence'),
     include       = require('gulp-include'),
     sass          = require('gulp-sass'),
     postcss       = require('gulp-postcss'),
