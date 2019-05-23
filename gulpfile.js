@@ -184,6 +184,10 @@ gulp.task('watch', function () {
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);
   gulp.watch('src/assets/js/**/*.js', gulp.parallel('js'));
   gulp.watch('dist/js/scripts.js').on('change', browserSync.reload);
+  gulp.watch(['src/assets/img/**/*.png', 'src/assets/img/**/*.jpg'], gulp.parallel('optimizationIMG'));
+  gulp.watch(['src/assets/img/**/*.svg', '!src/assets/img/sprites/**/*.svg'], gulp.parallel('optimizationSVG'));
+  gulp.watch(['src/assets/img/sprites/svg-fragments/**/*.svg'], gulp.parallel('svgFragmentsSprite'));
+  gulp.watch(['src/assets/img/sprites/svg-symbols/**/*.svg'], gulp.parallel('svgSymbolSprite'));
 });
 
 //Default Gulp task
