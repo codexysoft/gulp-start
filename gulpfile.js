@@ -1,4 +1,6 @@
 var gulp          = require('gulp'),
+    del           = require('del'),
+    path          = require('path'),
     include       = require('gulp-include'),
     sass          = require('gulp-sass'),
     postcss       = require('gulp-postcss'),
@@ -101,7 +103,7 @@ gulp.task('optimizationIMG', () => {
 //optimization svg
 
 gulp.task('optimizationSVG', function () {
-  return gulp.src(['src/assets/img/**/*.svg', '!src/assets/img/sprites/**/*.svg'])
+  return gulp.src(['src/assets/img/**/*.svg', '!src/assets/img/sprites/**/*.svg'], {base: 'src/assets/img'})
     .pipe(svgmin())
     .pipe(gulp.dest('dist/img/'));
 });
@@ -184,10 +186,22 @@ gulp.task('watch', function () {
   gulp.watch('dist/**/*.html').on('change', browserSync.reload);
   gulp.watch('src/assets/js/**/*.js', gulp.parallel('js'));
   gulp.watch('dist/js/scripts.js').on('change', browserSync.reload);
-  gulp.watch(['src/assets/img/**/*.png', 'src/assets/img/**/*.jpg'], gulp.parallel('optimizationIMG'));
-  gulp.watch(['src/assets/img/**/*.svg', '!src/assets/img/sprites/**/*.svg'], gulp.parallel('optimizationSVG'));
   gulp.watch(['src/assets/img/sprites/svg-fragments/**/*.svg'], gulp.parallel('svgFragmentsSprite'));
   gulp.watch(['src/assets/img/sprites/svg-symbols/**/*.svg'], gulp.parallel('svgSymbolSprite'));
+
+  var svgWatcher = gulp.watch(['src/assets/img/**/*.svg', '!src/assets/img/sprites/**/*.svg'], gulp.parallel('optimizationSVG'));
+  var imgWatcher = gulp.watch(['src/assets/img/**/*.png', 'src/assets/img/**/*.jpg'], gulp.parallel('optimizationIMG'));
+
+  function watcher(task) {
+    task.on('unlink', function (filepath) {
+      var filePathFromSrc = path.relative(path.resolve('src/assets/img'), filepath);
+      var destFilePath = path.resolve('dist/img', filePathFromSrc);
+      del.sync(destFilePath);
+    });
+  }
+
+  watcher(svgWatcher);
+  watcher(imgWatcher);
 });
 
 //Default Gulp task
