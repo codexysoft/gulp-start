@@ -46,7 +46,7 @@ gulp.task('styles', function () {
   var processors = [
     autoprefixer(),
     postcssSvg({paths: ['dist/img'], silent: false}),
-    postcssAssets({loadPaths: ['dist/img/']}),
+    postcssAssets({loadPaths: ['dist/img'], basePath: 'dist/img', baseUrl: '/img/'}),
     postcssFlex(),
   ];
   return gulp.src('src/assets/stylesheets/style.sass')
