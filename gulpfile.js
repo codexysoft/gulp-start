@@ -52,7 +52,7 @@ gulp.task('styles', function () {
   return gulp.src('src/assets/stylesheets/style.sass')
   .pipe(sourcemaps.init())
   .pipe(gulpif(!argv.production, sourcemaps.init()))
-  .pipe(sass({includePaths: ['src/assets/vendor']}).on('error', notify.onError()))
+  .pipe(sass({includePaths: ['node_modules']}).on('error', notify.onError()))
   .pipe(postcss(processors).on('error', notify.onError()))
   .pipe(cssnano())
   .pipe(gulpif(!argv.production, sourcemaps.write()))
@@ -74,7 +74,7 @@ gulp.task('js', function (done) {
   gulp.src('src/assets/js/scripts.js')
     .pipe(include({
       hardFail: true,
-      includePaths: ['src/assets/vendor', 'src/assets/js']
+      includePaths: ['node_modules', 'src/assets/js']
     }).on('error', notify.onError()))
     .pipe(gulpif(!argv.production, sourcemaps.init()))
     .pipe(babel({
