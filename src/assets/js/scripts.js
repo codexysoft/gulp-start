@@ -1,2 +1,2 @@
-//=require jquery/dist/jquery.min.js
-//=require blocks/block-name.js
+import 'bootstrap/js/dist/dropdown.js'
+import "./blocks/block-name.js";

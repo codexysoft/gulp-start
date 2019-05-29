@@ -1,6 +1,10 @@
 var gulp          = require('gulp'),
     del           = require('del'),
     path          = require('path'),
+    browserify    = require('browserify'),
+    source        = require('vinyl-source-stream'),
+    buffer        = require('vinyl-buffer'),
+    babelify      = require('babelify'),
     include       = require('gulp-include'),
     sass          = require('gulp-sass'),
     postcss       = require('gulp-postcss'),
@@ -70,22 +74,18 @@ gulp.task('pug', function() {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('js', function (done) {
-  gulp.src('src/assets/js/scripts.js')
-    .pipe(include({
-      hardFail: true,
-      includePaths: ['node_modules', 'src/assets/js']
-    }).on('error', notify.onError()))
+gulp.task('js', function () {
+  return browserify({entries: './src/assets/js/scripts.js', paths: ['node_modules', 'src/assets/js'], debug: false})
+    .transform('babelify', {presets: ['@babel/env']})
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
     .pipe(gulpif(!argv.production, sourcemaps.init()))
-    .pipe(babel({
-      presets: ['@babel/env']
-    }))
     .pipe(uglify().on('error', notify.onError(function (error) {
       return 'Message to the notifier: ' + error.message;
     })))
     .pipe(gulpif(!argv.production, sourcemaps.write()))
     .pipe(gulp.dest('dist/js/'));
-    done();
 });
 
 //optimization img(jpg,png)
