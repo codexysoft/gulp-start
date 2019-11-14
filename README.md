@@ -24,10 +24,11 @@ You should install:
 - Bower `npm install bower -g`
 
 After:
-1. In command line, `cd` into your project folder
-2. Run `npm install`
-3. Run `bower install`
-4. When it's done installing, run `gulp`
+1. [Download ](https://github.com/codexysoft/gulp-start/archive/master.zip) from GitHub
+2. Unzip archive and in command line make `cd` into project folder
+3. Run `npm install`
+4. Run `bower install`
+5. When it's done installing, run `gulp`
 
 ## Documentation
 
