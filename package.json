@@ -1,7 +1,30 @@
 {
-  "name": "gulp-project",
+  "name": "@codexysoft/gulp-start",
   "version": "1.0.0",
-  "description": "Gulp Project",
+  "description": "Gulp 4 boilerplate for CSS/HTML/JavaScript development by Codexy Software team.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codexysoft/gulp-start.git"
+  },
+  "keywords": [
+    "gulp",
+    "gulp-start",
+    "gulp-boilerplate",
+    "boilerplate",
+    "front-end",
+    "sass",
+    "build",
+    "browserify",
+    "svg",
+    "svg-sprites",
+    "fonts"
+  ],
+  "author": "lmi11",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codexysoft/gulp-start/issues"
+  },
+  "homepage": "https://github.com/codexysoft/gulp-start#readme",
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
