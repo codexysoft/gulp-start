@@ -1,5 +1,6 @@
 # gulp-start
-![gulp-start by Codexy Software](https://codexysoft.com/img/gulp-start-cover.jpg)
+<img src="https://codexysoft.com/img/cover-gulp-start.jpg" alt="" width="700">
+
 > Gulp 4 boilerplate for CSS/HTML/JavaScript development by <a href="http://codexysoft.com" target="_blank">Codexy Software</a> team.
 
 ## What is included
