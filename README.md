@@ -21,14 +21,12 @@ You should install:
 
 - [Node.js](http://nodejs.org)
 - Gulp CLI `npm install gulp-cli -g`
-- Bower `npm install bower -g`
 
 After:
 1. [Download ](https://github.com/codexysoft/gulp-start/archive/master.zip) from GitHub
 2. Unzip archive and in command line make `cd` into project folder
 3. Run `npm install`
-4. Run `bower install`
-5. When it's done installing, run `gulp`
+4. When it's done installing, run `gulp`
 
 ## Documentation
 
